@@ -3,26 +3,25 @@
 #include "Minesweeper.h"
 #include <stdio.h>
 
+Screen Rc;
 
-
-
-
-void keyListener(int key, int event) {
-	printf("key = %d event = %d\n",key,event);
+void mouseListener(int x, int y, int button, int event) 
+{
+	printf("x = %d y = %d button = %d event = %d\n", x, y, button, event);
+	if (button == LEFT_BUTTON && event == BUTTON_DOWN) {
+		Rc.LeftClick(x / 30, y / 30);
+	}
+	else if (button == RIGHT_BUTTON && event == BUTTON_DOWN) {
+		Rc.RightClick(x / 30, y / 30);
+	}
 }
+
 
 int Setup()
 {
-	initWindow("É¨À×", DEFAULT, DEFAULT, 300, 300);
-
-	//initConsole();
-	printf("Hello\n");
-	beginPaint();
-	line(30, 0, 30, 30);
-	line(0, 30, 30, 30);
-	setTextSize(19);
-	setTextColor(BLUE);
-	paintText(8, 4, "1");
-	endPaint();
+	initWindow("É¨À×", DEFAULT, DEFAULT, SCREEN_LENGTH, SCREEN_LENGTH);
+	initConsole();
+	Rc.Show();
+	registerMouseEvent(mouseListener);
 	return 0;
 }

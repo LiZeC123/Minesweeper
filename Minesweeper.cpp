@@ -22,7 +22,9 @@ Screen::Screen()
 void  Screen::Show()
 {	
 	//先刷新屏幕
+	beginPaint();
 	clearDevice();
+	endPaint();
 
 	if (!IsLive()) {
 		//叠加错误的地方，标记误判，以及没有发现的雷
@@ -32,7 +34,7 @@ void  Screen::Show()
 
 	for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
 		for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
-			Data[i][j].draw(i*MINE_LENGTH, j*MINE_LENGTH);
+			Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH);
 		}
 	}
 
@@ -129,6 +131,7 @@ void Mine::draw(int x, int y)
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
 	static const int offsetX = 8;
 	static const int offsetY = 4;
+	beginPaint();
 	setTextSize(19);
 	setTextColor(BLUE);
 
@@ -144,14 +147,13 @@ void Mine::draw(int x, int y)
 		paintText(x + offsetX, y + offsetY, "M");
 	}
 	else {
-		beginPaint();
 		line(x, y, nx, y);
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);
 		line(x, ny, x, y);
 		line(x + MINE_LENGTH / 3, y, x, y + MINE_LENGTH / 3);
 		line(x + 2 * MINE_LENGTH / 3, y, x, y + 2 * MINE_LENGTH / 3);
-		line(nx, y, x, ny);
-		endPaint();
+		line(nx, y, x, ny);	
 	}
+	endPaint();
 }

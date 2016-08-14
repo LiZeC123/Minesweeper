@@ -146,7 +146,6 @@
     <ClCompile Include="idea.txt" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minesweeper.cpp" />
-    <ClCompile Include="MinesweeperMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acllib.h" />
