@@ -26,21 +26,27 @@ void  Screen::Show()
 	clearDevice();
 	endPaint();
 
-	if (!IsLive()) {
-		//叠加错误的地方，标记误判，以及没有发现的雷
-
-	}
-
-
 	for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
 		for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
 			Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH);
 		}
 	}
+	if (!IsLive()) {
+		//叠加错误的地方，标记误判，以及没有发现的雷
+		beginPaint();
+		setTextColor(RED);
+		setTextSize(30);
+		paintText(0, 0, "Game Over!");
+		endPaint();
+	}
+	if (IsWin()) {
+		beginPaint();
+		setTextColor(RED);
+		setTextSize(30);
+		paintText(0, 0, "You Win!");
+		endPaint();
+	}
 
-	////打印当前参数
-	//std::cout << "Mark:   " << MarkNum << std::endl;
-	//std::cout << "Remain: " << NotMineNum << std::endl;
 }
 
 void Screen::LeftClick(int x, int y)
