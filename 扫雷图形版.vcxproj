@@ -142,6 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="acllib.c" />
+    <ClCompile Include="idea.txt" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Minesweeper.cpp" />
+    <ClCompile Include="MinesweeperMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="acllib.h" />
+    <ClInclude Include="Minesweeper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
