@@ -81,6 +81,44 @@ void Screen::RightClick(int x, int y)
 	Show();
 }
 
+void Screen::BothClick(int x, int y)
+{
+	if (!Data[y][x].IsCheck) {
+		return;
+	}
+
+	int markNum = 0;
+	for (int iy = y - 1; iy <= y + 1; ++iy) {
+		for (int ix = x - 1; ix <= x + 1; ++ix) {
+			if (iy < 0 || ix < 0)
+				continue;
+			if (iy >= Data.size() || ix >= Data[0].size())
+				continue;
+			if (ix == x && iy == y)
+				continue;
+			if (!Data[iy][ix].IsCheck && Data[iy][ix].IsMark)
+				++markNum;
+		}
+	}
+
+	if (markNum == Data[y][x].Num) {
+		for (int iy = y - 1; iy <= y + 1; ++iy) {
+			for (int ix = x - 1; ix <= x + 1; ++ix) {
+				if (iy < 0 || ix < 0)
+					continue;
+				if (iy >= Data.size() || ix >= Data[0].size())
+					continue;
+				if (ix == x && iy == y)
+					continue;
+				if (!Data[iy][ix].IsCheck && !Data[iy][ix].IsMark)
+					LeftClick(ix, iy);
+			}
+		}
+	}
+
+
+}
+
 bool Screen::IsLive()
 {
 	return Live;

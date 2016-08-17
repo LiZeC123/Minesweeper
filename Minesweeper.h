@@ -20,7 +20,7 @@
 //À×ÇøÆÁÄ»³ß´ç
 #define SCREEN_LENGTH			MINE_LENGTH * SELF_CELL_LENGTH	
 
-#define CMD_LENGTH				30
+//#define CMD_LENGTH				30
 
 class Mine
 {
@@ -43,6 +43,7 @@ public:
 
 	void LeftClick(int x, int y);
 	void RightClick(int x, int y);
+	void BothClick(int x, int y);
 
 	bool IsLive();
 	bool IsWin();
