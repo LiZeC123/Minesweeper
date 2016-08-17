@@ -22,6 +22,16 @@
 
 //#define CMD_LENGTH				30
 
+
+enum MineStyle {
+	IS_CHECK,
+	NO_CKECK,
+	IS_MARK,
+	NO_MARK,
+	DEAD_MINE,
+	WRONG_MARK,
+};
+
 class Mine
 {
 public:
@@ -29,7 +39,7 @@ public:
 	bool IsCheck = false;
 	bool IsMark = false;
 	int  Num = 0;
-	void draw(int x, int y, bool spMine = false);
+	void draw(int x, int y, MineStyle style);
 };
 
 class Screen

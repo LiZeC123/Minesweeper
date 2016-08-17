@@ -26,28 +26,75 @@ void  Screen::Show()
 	clearDevice();
 	endPaint();
 
-	for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
-		for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
-			Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH);
+	if (IsLive()) {
+		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
+			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+				if (Data[i][j].IsCheck) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+					//check
+				}
+				else if (Data[i][j].IsMark) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					//mark
+				}
+				else  {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_CKECK);
+					// not mark and not check
+				}
+
+				
+			}
 		}
 	}
+
+
 
 	if (!IsLive()) {
 		//叠加错误的地方，标记误判，以及没有发现的雷
-		beginPaint();
-		setTextColor(RED);
-		setTextSize(30);
-		paintText(0, 0, "Game Over!");
-		endPaint();
+		//beginPaint();
+		//setTextColor(RED);
+		//setTextSize(30);
+		//paintText(0, 0, "Game Over!");
+		//endPaint();
 
 		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
 			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
-				Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, true);
+				if (Data[i][j].IsMark && !Data[i][j].IsMine) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, WRONG_MARK);
+					//wrong
+				}
+				else if (Data[i][j].IsMark && Data[i][j].IsMine) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					//normal mark
+				}
+				else if (Data[i][j].IsMine) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, DEAD_MINE);
+				}
+				else if (Data[i][j].IsCheck) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+				}
+				else {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_MARK);
+					//normal no check
+				}
+				
+			}
+		}
+	}
+
+	if (IsWin()) {
+		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
+			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+				if (Data[i][j].IsCheck) {
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+				}
+				else{
+					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					//mark
+				}
 			}
 		}
 
-	}
-	if (IsWin()) {
 		beginPaint();
 		setTextColor(RED);
 		setTextSize(30);
@@ -178,38 +225,68 @@ void Screen::RecuCheck(int cx, int cy)
 	}
 }
 
-void Mine::draw(int x, int y,bool spMine )
+void Mine::draw(int x, int y,MineStyle style)
 {
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
 	static const int offsetX = 8;
 	static const int offsetY = 4;
 	beginPaint();
 	setTextSize(19);
-	setTextColor(BLUE);
+	
 
 	int nx = x + MINE_LENGTH, ny = y + MINE_LENGTH;
-	if (IsCheck) {
-		paintText(x + offsetX, y + offsetY, number[Num]);
-	}
-	else if (IsMark) {
-		line(x, y, nx, y);
-		line(nx, y, nx, ny);
-		line(nx, ny, x, ny);
-		line(x, ny, x, y);
-		paintText(x + offsetX, y + offsetY, "M");
-	}
-	else{
-		if (spMine == true && IsMine) {
-			paintText(x + offsetX, y + offsetY, "B");
-		}
 
+	switch (style )
+	{
+	case IS_CHECK:
+		setTextColor(BLUE);
+		paintText(x + offsetX, y + offsetY, number[Num]);
+		break;
+	case NO_CKECK:
 		line(x, y, nx, y);
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);
 		line(x, ny, x, y);
 		line(x + MINE_LENGTH / 3, y, x, y + MINE_LENGTH / 3);
 		line(x + 2 * MINE_LENGTH / 3, y, x, y + 2 * MINE_LENGTH / 3);
-		line(nx, y, x, ny);	
+		line(nx, y, x, ny);
+		break;
+	case IS_MARK:
+		line(x, y, nx, y);
+		line(nx, y, nx, ny);
+		line(nx, ny, x, ny);
+		line(x, ny, x, y);
+		setTextColor(BLUE);
+		paintText(x + offsetX, y + offsetY, "M");
+		break;
+	case NO_MARK:
+		line(x, y, nx, y);
+		line(nx, y, nx, ny);
+		line(nx, ny, x, ny);
+		line(x, ny, x, y);
+		line(x + MINE_LENGTH / 3, y, x, y + MINE_LENGTH / 3);
+		line(x + 2 * MINE_LENGTH / 3, y, x, y + 2 * MINE_LENGTH / 3);
+		line(nx, y, x, ny);
+		break;
+	case DEAD_MINE:
+		line(x, y, nx, y);
+		line(nx, y, nx, ny);
+		line(nx, ny, x, ny);
+		line(x, ny, x, y);
+		setTextColor(BLACK);
+		paintText(x + offsetX, y + offsetY, "B");
+		break;
+	case WRONG_MARK:
+		line(x, y, nx, y);
+		line(nx, y, nx, ny);
+		line(nx, ny, x, ny);
+		line(x, ny, x, y);
+		setTextColor(RED);
+		paintText(x + offsetX, y + offsetY, "X");
+		break;
+	default:
+		break;
 	}
+
 	endPaint();
 }
