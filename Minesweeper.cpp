@@ -31,6 +31,7 @@ void  Screen::Show()
 			Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH);
 		}
 	}
+
 	if (!IsLive()) {
 		//叠加错误的地方，标记误判，以及没有发现的雷
 		beginPaint();
@@ -38,6 +39,13 @@ void  Screen::Show()
 		setTextSize(30);
 		paintText(0, 0, "Game Over!");
 		endPaint();
+
+		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
+			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+				Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, true);
+			}
+		}
+
 	}
 	if (IsWin()) {
 		beginPaint();
@@ -170,7 +178,7 @@ void Screen::RecuCheck(int cx, int cy)
 	}
 }
 
-void Mine::draw(int x, int y)
+void Mine::draw(int x, int y,bool spMine )
 {
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
 	static const int offsetX = 8;
@@ -190,7 +198,11 @@ void Mine::draw(int x, int y)
 		line(x, ny, x, y);
 		paintText(x + offsetX, y + offsetY, "M");
 	}
-	else {
+	else{
+		if (spMine == true && IsMine) {
+			paintText(x + offsetX, y + offsetY, "B");
+		}
+
 		line(x, y, nx, y);
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);

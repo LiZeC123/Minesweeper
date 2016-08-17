@@ -29,7 +29,7 @@ public:
 	bool IsCheck = false;
 	bool IsMark = false;
 	int  Num = 0;
-	void draw(int x, int y);
+	void draw(int x, int y, bool spMine = false);
 };
 
 class Screen
