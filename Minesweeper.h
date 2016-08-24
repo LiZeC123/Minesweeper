@@ -7,12 +7,14 @@
 //屏幕中包含的格子数量
 #define SMALL_CELL_LENGTH		9
 #define MIDDLE_CELL_LENGTH		16
-#define SELF_CELL_LENGTH		MIDDLE_CELL_LENGTH
+#define BIG_CELL_LENGTH			22
+#define SELF_CELL_LENGTH		BIG_CELL_LENGTH
 
 //雷的数量
 #define SMALL_MINE_NUM			10
 #define MIDDLE_MINE_NUM			40
-#define SELF_MINE_NUM			MIDDLE_MINE_NUM
+#define BIG_MINE_NUM			99
+#define SELF_MINE_NUM			BIG_CELL_LENGTH
 
 //雷在屏幕中的尺寸
 #define MINE_LENGTH				30

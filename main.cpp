@@ -39,7 +39,7 @@ void mouseListener(int x, int y, int button, int event)
 
 int Setup()
 {
-	initWindow("É¨À×", DEFAULT, DEFAULT, SCREEN_LENGTH, SCREEN_LENGTH);
+	initWindow("É¨À×", 300, 50, SCREEN_LENGTH, SCREEN_LENGTH);
 	//initConsole();
 	Rc.Show();
 	registerMouseEvent(mouseListener);
