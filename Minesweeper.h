@@ -14,7 +14,7 @@
 #define SMALL_MINE_NUM			10
 #define MIDDLE_MINE_NUM			40
 #define BIG_MINE_NUM			99
-#define SELF_MINE_NUM			BIG_CELL_LENGTH
+#define SELF_MINE_NUM			BIG_MINE_NUM
 
 //À×ÔÚÆÁÄ»ÖÐµÄ³ß´ç
 #define MINE_LENGTH				30
