@@ -48,6 +48,9 @@ class Screen
 {
 public:
 	Screen();
+	void restartThisGame();
+	void newGame();
+
 public:
 
 
@@ -75,5 +78,11 @@ private:
 	unsigned int MarkNum = 0;
 
 	bool Live = true;
+
+	void resetGameFlag() {
+		NotMineNum = SELF_CELL_LENGTH * SELF_CELL_LENGTH - SELF_MINE_NUM;
+		MarkNum = 0;
+		Live = true;
+	}
 
 };

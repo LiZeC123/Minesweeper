@@ -4,6 +4,46 @@
 Screen::Screen()
 {
 	srand((unsigned int)time(0));
+	newGame();
+	//int i = 0;
+	//while (i != SELF_MINE_NUM) {
+	//	int ix, iy;
+	//	ix = rand() % SELF_CELL_LENGTH;
+	//	iy = rand() % SELF_CELL_LENGTH;
+	//	if (Data[iy][ix].IsMine) {
+	//		continue;
+	//	}
+	//	else {
+	//		Data[iy][ix].IsMine = true;
+	//		++i;
+	//	}
+	//}
+}
+
+void Screen::restartThisGame()
+{
+	for (auto &r : Data) {
+		for (auto &i : r) {
+			i.IsCheck = false;
+			i.IsMark = false;
+			i.Num = 0;
+		}
+	}
+
+	resetGameFlag();
+}
+
+void Screen::newGame()
+{
+	for (auto & r : Data) {
+		for (auto &i : r) {
+			i.IsMine = false;
+			i.IsCheck = false;
+			i.IsMark = false;
+			i.Num = 0;
+		}
+	}
+
 	int i = 0;
 	while (i != SELF_MINE_NUM) {
 		int ix, iy;
@@ -17,6 +57,7 @@ Screen::Screen()
 			++i;
 		}
 	}
+	resetGameFlag();
 }
 
 void  Screen::Show()
