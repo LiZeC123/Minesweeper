@@ -211,8 +211,7 @@ void Screen::BothClick(int x, int y)
 			}
 		}
 	}
-
-
+	Show();
 }
 
 bool Screen::IsLive()
@@ -223,6 +222,22 @@ bool Screen::IsLive()
 bool Screen::IsWin()
 {
 	return NotMineNum == 0;
+}
+
+void Screen::cheatLook(int cx, int cy)
+{
+	for (int iy = cy - 1; iy <= cy + 1; ++iy) {
+		for (int ix = cx - 1; ix <= cx + 1; ++ix) {
+			if (iy < 0 || ix < 0)
+				continue;
+			if (iy >= Data.size() || ix >= Data[0].size())
+				continue;
+			if (ix == cx && iy == cy)
+				continue;
+			if (Data[iy][ix].IsMine) 
+				Data[iy][ix].IsMark = true;
+		}
+	}
 }
 
 int Screen::CheckMine(int cx, int cy)
@@ -330,4 +345,24 @@ void Mine::draw(int x, int y,MineStyle style)
 	}
 
 	endPaint();
+}
+
+void CharDeque::push(char one)
+{
+	content.push_back(one);
+	if (content.size() > 14) {
+		content.pop_front();
+	}
+}
+
+bool CharDeque::operator==(const std::string & rs)
+{
+	auto sit = rs.crbegin();
+	auto dit = content.crbegin();
+	while (sit != rs.crend() && dit != content.crend()) {
+		if (*sit != *dit) {
+			return false;
+		}
+	}
+	return true;
 }

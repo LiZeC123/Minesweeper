@@ -3,6 +3,9 @@
 #include <iostream>
 #include <ctime>
 
+#include <string>
+#include <deque>
+
 //注意，调整宏值，需要全部重新编译
 //屏幕中包含的格子数量
 #define SMALL_CELL_LENGTH		9
@@ -53,7 +56,6 @@ public:
 
 public:
 
-
 	void Show();
 
 	void LeftClick(int x, int y);
@@ -62,6 +64,8 @@ public:
 
 	bool IsLive();
 	bool IsWin();
+
+	void cheatLook(int cx, int cy);
 
 private:
 	std::array<std::array<Mine, SELF_CELL_LENGTH>, SELF_CELL_LENGTH> Data;
@@ -85,4 +89,16 @@ private:
 		Live = true;
 	}
 
+};
+
+class CharDeque {
+public:
+	CharDeque() = default;
+public:
+	void push(char one);
+public:
+	bool operator==(const std::string & rs);
+private:
+	std::deque<char> content;
+	const int MaxSize = 14;
 };
