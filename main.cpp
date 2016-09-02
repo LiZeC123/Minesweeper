@@ -44,20 +44,22 @@ void mouseListener(int x, int y, int button, int event)
 
 void KeyBoardListener(int key, int event) {
 	//printf("key = %d event = %d\n", key, event);
+	const static std::string cheat("LIZECISMYDADDY");
 	if (key == 'N' && event == KEY_DOWN) {
 		Rc.newGame();
 	}
 	else if (key == 'R' && event == KEY_DOWN) {
 		Rc.restartThisGame();
 	}
-	else if (key == 'C' && event == KEY_DOWN) {
-		NeedCheat = true;
-	}
-	else {
+	else if(event == KEY_DOWN){
 		Cd.push(key);
-
+		Cd.show();
+		if (Cd == cheat) {
+			NeedCheat = true;
+		}
 	}
 	Rc.Show();
+	//printf("NeedCheat = %d\n", NeedCheat);
 }
 
 int Setup()

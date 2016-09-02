@@ -350,9 +350,17 @@ void Mine::draw(int x, int y,MineStyle style)
 void CharDeque::push(char one)
 {
 	content.push_back(one);
-	if (content.size() > 14) {
+	if (content.size() > MaxSize) {
 		content.pop_front();
 	}
+}
+
+void CharDeque::show()
+{
+	for (const auto &i : content) {
+		std::cout << (char)i;
+	}
+	std::cout << std::endl;
 }
 
 bool CharDeque::operator==(const std::string & rs)
@@ -363,6 +371,8 @@ bool CharDeque::operator==(const std::string & rs)
 		if (*sit != *dit) {
 			return false;
 		}
+		++sit;
+		++dit;
 	}
 	return true;
 }

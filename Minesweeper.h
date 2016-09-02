@@ -96,9 +96,10 @@ public:
 	CharDeque() = default;
 public:
 	void push(char one);
+	void show();
 public:
 	bool operator==(const std::string & rs);
 private:
-	std::deque<char> content;
+	std::deque<int> content;
 	const int MaxSize = 14;
 };
