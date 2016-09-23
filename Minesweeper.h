@@ -6,7 +6,6 @@
 #include <string>
 #include <deque>
 
-//注意，调整宏值，需要全部重新编译
 //屏幕中包含的格子的尺寸
 //初级
 #define SMALL_CELL_WIDTH		9

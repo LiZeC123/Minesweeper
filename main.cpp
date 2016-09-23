@@ -13,12 +13,10 @@ void mouseListener(int x, int y, int button, int event)
 
 	if (Rc.IsLive() && event == BUTTON_DOWN) {
 		if (oneButtonStillDown == BUTTON_DOWN && (button == RIGHT_BUTTON || button == LEFT_BUTTON)) {
-			//printf("both click\n");
 			Rc.BothClick(x / 30, y / 30);
 		}
 
 		if (button == LEFT_BUTTON) {
-			//printf("left click\n");
 			if (NeedCheat) {
 				Rc.cheatLook(x / 30, y / 30);
 				NeedCheat = false;
@@ -28,7 +26,6 @@ void mouseListener(int x, int y, int button, int event)
 			}
 		}
 		else if (button == RIGHT_BUTTON) {
-			//printf("right click");
 			Rc.RightClick(x / 30, y / 30);
 		}
 	}
@@ -43,7 +40,6 @@ void mouseListener(int x, int y, int button, int event)
 }
 
 void KeyBoardListener(int key, int event) {
-	//printf("key = %d event = %d\n", key, event);
 	const static std::string cheat("LIZECISMYDADDY");
 	if (key == 'N' && event == KEY_DOWN) {
 		Rc.newGame();
@@ -53,13 +49,11 @@ void KeyBoardListener(int key, int event) {
 	}
 	else if(event == KEY_DOWN){
 		Cd.push(key);
-		//Cd.show();
 		if (Cd == cheat) {
 			NeedCheat = true;
 		}
 	}
 	Rc.Show();
-	//printf("NeedCheat = %d\n", NeedCheat);
 }
 
 void TimeListener(int TimeID)
@@ -73,7 +67,6 @@ void TimeListener(int TimeID)
 int Setup()
 {
 	initWindow("É¨À×", 300, 20, SCREEN_WIDTH, SCREEN_HEIGHT);
-	//initConsole();
 	Rc.Show();
 	registerMouseEvent(mouseListener);
 	registerKeyboardEvent(KeyBoardListener);

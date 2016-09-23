@@ -6,19 +6,6 @@ Screen::Screen()
 {
 	srand((unsigned int)time(0));
 	newGame();
-	//int i = 0;
-	//while (i != SELF_MINE_NUM) {
-	//	int ix, iy;
-	//	ix = rand() % SELF_CELL_LENGTH;
-	//	iy = rand() % SELF_CELL_LENGTH;
-	//	if (Data[iy][ix].IsMine) {
-	//		continue;
-	//	}
-	//	else {
-	//		Data[iy][ix].IsMine = true;
-	//		++i;
-	//	}
-	//}
 }
 
 void Screen::restartThisGame()
@@ -73,39 +60,26 @@ void  Screen::Show()
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
-					//check
 				}
 				else if (Data[i][j].IsMark) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
-					//mark
 				}
 				else  {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_CKECK);
-					// not mark and not check
 				}
 
-				
 			}
 		}
 	}
 
 	if (!IsLive()) {
-		//叠加错误的地方，标记误判，以及没有发现的雷
-		//beginPaint();
-		//setTextColor(RED);
-		//setTextSize(30);
-		//paintText(0, 0, "Game Over!");
-		//endPaint();
-
 		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsMark && !Data[i][j].IsMine) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, WRONG_MARK);
-					//wrong
 				}
 				else if (Data[i][j].IsMark && Data[i][j].IsMine) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
-					//normal mark
 				}
 				else if (Data[i][j].IsMine) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, DEAD_MINE);
@@ -115,7 +89,6 @@ void  Screen::Show()
 				}
 				else {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_MARK);
-					//normal no check
 				}
 				
 			}
@@ -130,7 +103,6 @@ void  Screen::Show()
 				}
 				else{
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
-					//mark
 				}
 			}
 		}
@@ -298,7 +270,6 @@ void Screen::ShowState()
 	static char TimeString[4];
 	char MinePrompt[10] = "Mine:";
 	char TimePrompt[10] = "Time:";
-	//const std::string MarkPrompt("M")
 
 	_itoa_s(MarkNum, MarkString, 10);
 	_itoa_s(Time, TimeString, 10);
