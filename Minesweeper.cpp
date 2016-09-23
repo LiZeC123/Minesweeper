@@ -47,8 +47,8 @@ void Screen::newGame()
 	int i = 0;
 	while (i != SELF_MINE_NUM) {
 		int ix, iy;
-		ix = rand() % SELF_CELL_LENGTH;
-		iy = rand() % SELF_CELL_LENGTH;
+		ix = rand() % SELF_CELL_WIDTH;
+		iy = rand() % SELF_CELL_HEIGHT;
 		if (Data[iy][ix].IsMine) {
 			continue;
 		}
@@ -68,8 +68,8 @@ void  Screen::Show()
 	endPaint();
 
 	if (IsLive()) {
-		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
-			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
+			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
 					//check
@@ -98,8 +98,8 @@ void  Screen::Show()
 		//paintText(0, 0, "Game Over!");
 		//endPaint();
 
-		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
-			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
+			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsMark && !Data[i][j].IsMine) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, WRONG_MARK);
 					//wrong
@@ -124,8 +124,8 @@ void  Screen::Show()
 	}
 
 	if (IsWin()) {
-		for (int i = 0; i < SELF_CELL_LENGTH; ++i) {
-			for (int j = 0; j < SELF_CELL_LENGTH; ++j) {
+		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
+			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {
 					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
 				}

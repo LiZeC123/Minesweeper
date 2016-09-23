@@ -7,11 +7,19 @@
 #include <deque>
 
 //注意，调整宏值，需要全部重新编译
-//屏幕中包含的格子数量
-#define SMALL_CELL_LENGTH		9
-#define MIDDLE_CELL_LENGTH		16
-#define BIG_CELL_LENGTH			23
-#define SELF_CELL_LENGTH		BIG_CELL_LENGTH
+//屏幕中包含的格子的尺寸
+//初级
+#define SMALL_CELL_WIDTH		9
+#define SMALL_CELL_HEIGHT		9
+//中级
+#define MIDDLE_CELL_WIDTH		16
+#define MIDDLE_CELL_HEIGHT		16
+//高级
+#define BIG_CELL_WIDTH			30
+#define BIG_CELL_HEIGHT			16
+//自定义
+#define SELF_CELL_WIDTH			BIG_CELL_WIDTH	
+#define SELF_CELL_HEIGHT		BIG_CELL_HEIGHT
 
 //雷的数量
 #define SMALL_MINE_NUM			10
@@ -23,7 +31,8 @@
 #define MINE_LENGTH				30
 
 //雷区屏幕尺寸
-#define SCREEN_LENGTH			MINE_LENGTH * SELF_CELL_LENGTH	
+#define SCREEN_WIDTH			MINE_LENGTH * SELF_CELL_WIDTH
+#define SCREEN_HEIGHT			MINE_LENGTH * SELF_CELL_HEIGHT
 
 //#define CMD_LENGTH				30
 
@@ -68,7 +77,7 @@ public:
 	void cheatLook(int cx, int cy);
 
 private:
-	std::array<std::array<Mine, SELF_CELL_LENGTH>, SELF_CELL_LENGTH> Data;
+	std::array<std::array<Mine, SELF_CELL_WIDTH>, SELF_CELL_HEIGHT> Data;
 
 	//检查指定位置的雷的数量，并返回
 	int CheckMine(int cx, int cy);
@@ -77,14 +86,14 @@ private:
 	void RecuCheck(int cx, int cy);
 
 	//非雷数量，归零时游戏胜利
-	unsigned int NotMineNum = SELF_CELL_LENGTH * SELF_CELL_LENGTH - SELF_MINE_NUM;
+	unsigned int NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
 
 	unsigned int MarkNum = 0;
 
 	bool Live = true;
 
 	void resetGameFlag() {
-		NotMineNum = SELF_CELL_LENGTH * SELF_CELL_LENGTH - SELF_MINE_NUM;
+		NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
 		MarkNum = 0;
 		Live = true;
 	}

@@ -64,7 +64,7 @@ void KeyBoardListener(int key, int event) {
 
 int Setup()
 {
-	initWindow("É¨À×", 300, 20, SCREEN_LENGTH, SCREEN_LENGTH);
+	initWindow("É¨À×", 300, 20, SCREEN_WIDTH, SCREEN_HEIGHT);
 	//initConsole();
 	Rc.Show();
 	registerMouseEvent(mouseListener);
