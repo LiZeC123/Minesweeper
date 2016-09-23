@@ -30,11 +30,14 @@
 //雷在屏幕中的尺寸
 #define MINE_LENGTH				30
 
+//
+#define CMD_LENGTH				30
+
 //雷区屏幕尺寸
 #define SCREEN_WIDTH			MINE_LENGTH * SELF_CELL_WIDTH
-#define SCREEN_HEIGHT			MINE_LENGTH * SELF_CELL_HEIGHT
+#define SCREEN_HEIGHT			MINE_LENGTH * SELF_CELL_HEIGHT + CMD_LENGTH
 
-//#define CMD_LENGTH				30
+
 
 
 enum MineStyle {
@@ -75,6 +78,7 @@ public:
 	bool IsWin();
 
 	void cheatLook(int cx, int cy);
+	void ReflashTime();
 
 private:
 	std::array<std::array<Mine, SELF_CELL_WIDTH>, SELF_CELL_HEIGHT> Data;
@@ -85,17 +89,26 @@ private:
 	//递归翻开所有雷数量为0的位置
 	void RecuCheck(int cx, int cy);
 
+	//显示游戏状态
+	void ShowState();
+
 	//非雷数量，归零时游戏胜利
 	unsigned int NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
-
-	unsigned int MarkNum = 0;
-
+	//标记雷数
+	int MarkNum = SELF_MINE_NUM;
+	//作弊产生的雷的数量
+	int CheatNum = 0;
+	//是否存活
 	bool Live = true;
+	//游戏单局用时
+	unsigned int Time = 0;
 
 	void resetGameFlag() {
 		NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
-		MarkNum = 0;
+		MarkNum = SELF_MINE_NUM;
+		CheatNum = 0;
 		Live = true;
+		Time = 0;
 	}
 
 };

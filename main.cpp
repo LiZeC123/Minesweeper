@@ -53,13 +53,21 @@ void KeyBoardListener(int key, int event) {
 	}
 	else if(event == KEY_DOWN){
 		Cd.push(key);
-		Cd.show();
+		//Cd.show();
 		if (Cd == cheat) {
 			NeedCheat = true;
 		}
 	}
 	Rc.Show();
 	//printf("NeedCheat = %d\n", NeedCheat);
+}
+
+void TimeListener(int TimeID)
+{
+	if (TimeID == 0) {
+		Rc.ReflashTime();
+		Rc.Show();
+	}
 }
 
 int Setup()
@@ -69,5 +77,8 @@ int Setup()
 	Rc.Show();
 	registerMouseEvent(mouseListener);
 	registerKeyboardEvent(KeyBoardListener);
+	registerTimerEvent(TimeListener);
+
+	startTimer(0, 1000);
 	return 0;
 }

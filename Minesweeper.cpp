@@ -1,5 +1,6 @@
 #include "Minesweeper.h"
 #include "acllib.h"
+#include <cstdlib>
 
 Screen::Screen()
 {
@@ -88,8 +89,6 @@ void  Screen::Show()
 		}
 	}
 
-
-
 	if (!IsLive()) {
 		//叠加错误的地方，标记误判，以及没有发现的雷
 		//beginPaint();
@@ -143,6 +142,7 @@ void  Screen::Show()
 		endPaint();
 	}
 
+	ShowState();
 }
 
 void Screen::LeftClick(int x, int y)
@@ -170,9 +170,9 @@ void Screen::RightClick(int x, int y)
 	if (!Data[y][x].IsCheck) {
 		Data[y][x].IsMark = !Data[y][x].IsMark;
 		if (Data[y][x].IsMark)
-			++MarkNum;
-		else
 			--MarkNum;
+		else
+			++MarkNum;
 	}
 	Show();
 }
@@ -234,9 +234,20 @@ void Screen::cheatLook(int cx, int cy)
 				continue;
 			if (ix == cx && iy == cy)
 				continue;
-			if (Data[iy][ix].IsMine) 
+			if (Data[iy][ix].IsMine) {
 				Data[iy][ix].IsMark = true;
+				--MarkNum;
+				++CheatNum;
+			}
+				
 		}
+	}
+}
+
+void Screen::ReflashTime()
+{
+	if (Live) {
+		++Time;
 	}
 }
 
@@ -281,6 +292,32 @@ void Screen::RecuCheck(int cx, int cy)
 	}
 }
 
+void Screen::ShowState()
+{
+	static char MarkString[4];
+	static char TimeString[4];
+	char MinePrompt[10] = "Mine:";
+	char TimePrompt[10] = "Time:";
+	//const std::string MarkPrompt("M")
+
+	_itoa_s(MarkNum, MarkString, 10);
+	_itoa_s(Time, TimeString, 10);
+
+	strcat(MinePrompt, MarkString);
+	strcat(TimePrompt, TimeString);
+	const int offset = 5;
+
+	beginPaint();
+	setTextColor(BLUE);
+	setTextSize(CMD_LENGTH - offset);
+	setPenColor(BLUE);
+	line(0, SCREEN_HEIGHT - CMD_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT - CMD_LENGTH);
+	paintText(0, SCREEN_HEIGHT - CMD_LENGTH + offset,MinePrompt);
+	paintText(SCREEN_WIDTH - CMD_LENGTH * 4, SCREEN_HEIGHT - CMD_LENGTH + offset, TimePrompt);
+	endPaint();
+	
+}
+
 void Mine::draw(int x, int y,MineStyle style)
 {
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
@@ -288,6 +325,7 @@ void Mine::draw(int x, int y,MineStyle style)
 	static const int offsetY = 4;
 	beginPaint();
 	setTextSize(19);
+	setPenColor(BLACK);
 	
 
 	int nx = x + MINE_LENGTH, ny = y + MINE_LENGTH;
