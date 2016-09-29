@@ -5,6 +5,7 @@
 Screen::Screen()
 {
 	srand((unsigned int)time(0));
+	
 	newGame();
 }
 
@@ -193,7 +194,7 @@ bool Screen::IsLive()
 
 bool Screen::IsWin()
 {
-	return NotMineNum == 0;
+	return Live && NotMineNum == 0;
 }
 
 void Screen::cheatLook(int cx, int cy)
@@ -288,9 +289,25 @@ void Screen::ShowState()
 	setTextColor(BLUE);
 	setTextSize(CMD_LENGTH - offset);
 	setPenColor(BLUE);
-	line(0, SCREEN_HEIGHT - CMD_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT - CMD_LENGTH);
-	paintText(0, SCREEN_HEIGHT - CMD_LENGTH + offset,MinePrompt);
-	paintText(SCREEN_WIDTH - CMD_LENGTH * 4, SCREEN_HEIGHT - CMD_LENGTH + offset, TimePrompt);
+	//绘制分割线
+	line(0, 0, SCREEN_WIDTH, 0);
+	line(0, CMD_LENGTH, SCREEN_WIDTH, CMD_LENGTH);
+
+	//绘制两端的数据
+	paintText(0,offset,MinePrompt);
+	//右侧数据与从右往左第四个方格对齐
+	paintText(SCREEN_WIDTH - MINE_LENGTH * 4, offset, TimePrompt);
+
+	//绘制中心的小图标
+	if (Live) {
+		putImage(&imgSmile, SCREEN_WIDTH / 2 - 12, 5);
+	}
+	if (IsWin()) {
+		putImage(&imgWin, SCREEN_WIDTH / 2 - 12, 5);
+	}
+	if (!Live) {
+		putImage(&imgDead, SCREEN_WIDTH / 2 - 12, 5);
+	}
 	endPaint();
 	
 }
@@ -298,12 +315,14 @@ void Screen::ShowState()
 void Mine::draw(int x, int y,MineStyle style)
 {
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
-	static const int offsetX = 8;
+	static const int offsetX = 5;
 	static const int offsetY = 4;
 	beginPaint();
 	setTextSize(19);
 	setPenColor(BLACK);
-	
+
+	//绘图部分向下偏移状态栏的长度
+	y = y + CMD_LENGTH;
 
 	int nx = x + MINE_LENGTH, ny = y + MINE_LENGTH;
 
@@ -327,8 +346,9 @@ void Mine::draw(int x, int y,MineStyle style)
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);
 		line(x, ny, x, y);
-		setTextColor(BLUE);
-		paintText(x + offsetX, y + offsetY, "M");
+		putImage(&imgRedFlag, x + offsetX, y + offsetY);
+		//setTextColor(BLUE);
+		//paintText(x + offsetX, y + offsetY, "M");
 		break;
 	case NO_MARK:
 		line(x, y, nx, y);
@@ -344,16 +364,18 @@ void Mine::draw(int x, int y,MineStyle style)
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);
 		line(x, ny, x, y);
-		setTextColor(BLACK);
-		paintText(x + offsetX, y + offsetY, "B");
+		putImage(&imgMine, x + offsetX, y + offsetY);
+		//setTextColor(BLACK);
+		//paintText(x + offsetX, y + offsetY, "B");
 		break;
 	case WRONG_MARK:
 		line(x, y, nx, y);
 		line(nx, y, nx, ny);
 		line(nx, ny, x, ny);
 		line(x, ny, x, y);
-		setTextColor(RED);
-		paintText(x + offsetX, y + offsetY, "X");
+		putImage(&imgWrongMine, x + offsetX, y + offsetY);
+		//setTextColor(RED);
+		//paintText(x + offsetX, y + offsetY, "X");
 		break;
 	default:
 		break;

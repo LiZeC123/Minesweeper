@@ -6,6 +6,8 @@
 #include <string>
 #include <deque>
 
+#include "acllib.h"
+
 //屏幕中包含的格子的尺寸
 //初级
 #define SMALL_CELL_WIDTH		9
@@ -36,8 +38,7 @@
 #define SCREEN_WIDTH			MINE_LENGTH * SELF_CELL_WIDTH
 #define SCREEN_HEIGHT			MINE_LENGTH * SELF_CELL_HEIGHT + CMD_LENGTH
 
-
-
+extern ACL_Image imgSmile, imgDead, imgWin, imgRedFlag, imgMine, imgWrongMine;
 
 enum MineStyle {
 	IS_CHECK,
@@ -101,6 +102,8 @@ private:
 	bool Live = true;
 	//游戏单局用时
 	unsigned int Time = 0;
+
+	
 
 	void resetGameFlag() {
 		NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;

@@ -6,27 +6,44 @@
 Screen Rc;
 CharDeque Cd;
 bool NeedCheat = false;
+ACL_Image imgSmile, imgDead, imgWin, imgRedFlag, imgMine,imgWrongMine;
 
 void mouseListener(int x, int y, int button, int event) 
 {
 	static int oneButtonStillDown = BUTTON_UP;
+	
+	//点击属性栏直接开始
+	if (event == BUTTON_DOWN && y <= 30) {
+		Rc.newGame();
+		return;
+	}
+
+	printf("x = %d y = %d\n", x, y);
+
+	//去除命令行产生的偏移
+	y = y - CMD_LENGTH;
+
+	//计算在数据表中的实际坐标
+	int int_x = x / MINE_LENGTH;
+	int int_y = y / MINE_LENGTH;
 
 	if (Rc.IsLive() && event == BUTTON_DOWN) {
 		if (oneButtonStillDown == BUTTON_DOWN && (button == RIGHT_BUTTON || button == LEFT_BUTTON)) {
-			Rc.BothClick(x / 30, y / 30);
+			Rc.BothClick(int_x, int_y);
 		}
 
 		if (button == LEFT_BUTTON) {
 			if (NeedCheat) {
-				Rc.cheatLook(x / 30, y / 30);
+				Rc.cheatLook(int_x, int_y);
 				NeedCheat = false;
 			}
 			else {
-				Rc.LeftClick(x / 30, y / 30);
+				printf("In LeftChilk: x = %d y = %d int_x = %d int_y = %d\n", x, y,int_x,int_y);
+				Rc.LeftClick(int_x, int_y);
 			}
 		}
 		else if (button == RIGHT_BUTTON) {
-			Rc.RightClick(x / 30, y / 30);
+			Rc.RightClick(int_x, int_y);
 		}
 	}
 
@@ -66,12 +83,20 @@ void TimeListener(int TimeID)
 
 int Setup()
 {
+	//已经初始化windows
 	initWindow("扫雷", 300, 20, SCREEN_WIDTH, SCREEN_HEIGHT);
-	Rc.Show();
+	loadImage("smile.jpg", &imgSmile);
+	loadImage("dead.jpg", &imgDead);
+	loadImage("win.jpg", &imgWin);
+	loadImage("RedFlag.jpg", &imgRedFlag);
+	loadImage("mine.jpg", &imgMine);
+	loadImage("WrongMine.jpg", &imgWrongMine);
+
 	registerMouseEvent(mouseListener);
 	registerKeyboardEvent(KeyBoardListener);
 	registerTimerEvent(TimeListener);
-
+	Rc.Show();
+	
 	startTimer(0, 1000);
 	return 0;
 }
