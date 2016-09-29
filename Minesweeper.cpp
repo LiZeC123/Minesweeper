@@ -207,8 +207,14 @@ void Screen::cheatLook(int cx, int cy)
 			if (ix == cx && iy == cy)
 				continue;
 			if (Data[iy][ix].IsMine) {
-				Data[iy][ix].IsMark = true;
-				--MarkNum;
+				if (Data[iy][ix].IsMark) {
+					continue;
+				}
+				else {
+					//只对没有标记过的雷进行标记
+					RightClick(ix, iy);
+				}
+				//统计最后的作弊次数
 				++CheatNum;
 			}
 				
