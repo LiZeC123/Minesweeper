@@ -36,4 +36,24 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="dead.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="mine.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="RedFlag.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="smile.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="win.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="WrongMine.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

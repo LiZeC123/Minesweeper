@@ -6,7 +6,6 @@
 Screen Rc;
 CharDeque Cd;
 bool NeedCheat = false;
-ACL_Image imgSmile, imgDead, imgWin, imgRedFlag, imgMine,imgWrongMine;
 
 void mouseListener(int x, int y, int button, int event) 
 {
@@ -85,16 +84,12 @@ int Setup()
 {
 	//已经初始化windows
 	initWindow("扫雷", 300, 20, SCREEN_WIDTH, SCREEN_HEIGHT);
-	loadImage("smile.jpg", &imgSmile);
-	loadImage("dead.jpg", &imgDead);
-	loadImage("win.jpg", &imgWin);
-	loadImage("RedFlag.jpg", &imgRedFlag);
-	loadImage("mine.jpg", &imgMine);
-	loadImage("WrongMine.jpg", &imgWrongMine);
 
 	registerMouseEvent(mouseListener);
 	registerKeyboardEvent(KeyBoardListener);
 	registerTimerEvent(TimeListener);
+
+	Rc.loadImg();
 	Rc.Show();
 	
 	startTimer(0, 1000);

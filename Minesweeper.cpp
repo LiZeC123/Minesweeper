@@ -9,6 +9,16 @@ Screen::Screen()
 	newGame();
 }
 
+void Screen::loadImg()
+{
+	loadImage("smile.jpg", &imgSmile);
+	loadImage("dead.jpg", &imgDead);
+	loadImage("win.jpg", &imgWin);
+	loadImage("RedFlag.jpg", &imgRedFlag);
+	loadImage("mine.jpg", &imgMine);
+	loadImage("WrongMine.jpg", &imgWrongMine);
+}
+
 void Screen::restartThisGame()
 {
 	for (auto &r : Data) {
@@ -60,13 +70,13 @@ void  Screen::Show()
 		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK,Data[i][j].Num);
 				}
 				else if (Data[i][j].IsMark) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
 				}
 				else  {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_CKECK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_CKECK);
 				}
 
 			}
@@ -77,19 +87,19 @@ void  Screen::Show()
 		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsMark && !Data[i][j].IsMine) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, WRONG_MARK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, WRONG_MARK);
 				}
 				else if (Data[i][j].IsMark && Data[i][j].IsMine) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
 				}
 				else if (Data[i][j].IsMine) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, DEAD_MINE);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, DEAD_MINE);
 				}
 				else if (Data[i][j].IsCheck) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK,Data[i][j].Num);
 				}
 				else {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_MARK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, NO_MARK);
 				}
 				
 			}
@@ -100,19 +110,13 @@ void  Screen::Show()
 		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_CHECK,Data[i][j].Num);
 				}
 				else{
-					Data[i][j].draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
+					draw(j*MINE_LENGTH, i*MINE_LENGTH, IS_MARK);
 				}
 			}
 		}
-
-		beginPaint();
-		setTextColor(RED);
-		setTextSize(30);
-		paintText(0, 0, "You Win!");
-		endPaint();
 	}
 
 	ShowState();
@@ -225,7 +229,7 @@ void Screen::cheatLook(int cx, int cy)
 
 void Screen::ReflashTime()
 {
-	if (Live) {
+	if (Live && !IsWin()) {
 		++Time;
 	}
 }
@@ -308,11 +312,19 @@ void Screen::ShowState()
 	if (!Live) {
 		putImage(&imgDead, SCREEN_WIDTH / 2 - 12, 5);
 	}
+
+	//绘制中心图标周围的框
+	int x1 = SCREEN_WIDTH / 2 - 15;
+	int x2 = SCREEN_WIDTH / 2 + 15;
+	int y1 = 0;
+	int y2 = CMD_LENGTH;
+	line(x1, y1, x1, y2);
+	line(x2, y1, x2, y2);
 	endPaint();
 	
 }
 
-void Mine::draw(int x, int y,MineStyle style)
+void Screen::draw(int x, int y, MineStyle style, int Num)
 {
 	static char * number[] = { " ","1","2","3","4","5","6","7","8","9" };
 	static const int offsetX = 5;
@@ -326,7 +338,7 @@ void Mine::draw(int x, int y,MineStyle style)
 
 	int nx = x + MINE_LENGTH, ny = y + MINE_LENGTH;
 
-	switch (style )
+	switch (style)
 	{
 	case IS_CHECK:
 		setTextColor(BLUE);
@@ -376,6 +388,7 @@ void Mine::draw(int x, int y,MineStyle style)
 		putImage(&imgWrongMine, x + offsetX, y + offsetY);
 		//setTextColor(RED);
 		//paintText(x + offsetX, y + offsetY, "X");
+
 		break;
 	default:
 		break;

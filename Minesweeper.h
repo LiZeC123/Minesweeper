@@ -38,7 +38,6 @@
 #define SCREEN_WIDTH			MINE_LENGTH * SELF_CELL_WIDTH
 #define SCREEN_HEIGHT			MINE_LENGTH * SELF_CELL_HEIGHT + CMD_LENGTH
 
-extern ACL_Image imgSmile, imgDead, imgWin, imgRedFlag, imgMine, imgWrongMine;
 
 enum MineStyle {
 	IS_CHECK,
@@ -52,17 +51,24 @@ enum MineStyle {
 class Mine
 {
 public:
+
+
+public:
 	bool IsMine = false;
 	bool IsCheck = false;
 	bool IsMark = false;
 	int  Num = 0;
-	void draw(int x, int y, MineStyle style);
+	
+private:
+	
+
 };
 
 class Screen
 {
 public:
 	Screen();
+	void loadImg();
 	void restartThisGame();
 	void newGame();
 
@@ -92,6 +98,9 @@ private:
 	//显示游戏状态
 	void ShowState();
 
+	//辅助绘制图形
+	void draw(int x, int y, MineStyle style, int Num = 0);
+
 	//非雷数量，归零时游戏胜利
 	unsigned int NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
 	//标记雷数
@@ -103,6 +112,8 @@ private:
 	//游戏单局用时
 	unsigned int Time = 0;
 
+	//需要的全部图形
+	ACL_Image imgSmile, imgDead, imgWin, imgRedFlag, imgMine, imgWrongMine;
 	
 
 	void resetGameFlag() {
