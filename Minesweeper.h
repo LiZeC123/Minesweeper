@@ -9,29 +9,40 @@
 #include "acllib.h"
 
 //屏幕中包含的格子的尺寸
-//初级
-#define SMALL_CELL_WIDTH		9
-#define SMALL_CELL_HEIGHT		9
-//中级
-#define MIDDLE_CELL_WIDTH		16
-#define MIDDLE_CELL_HEIGHT		16
-//高级
-#define BIG_CELL_WIDTH			30
-#define BIG_CELL_HEIGHT			16
-//自定义
-#define SELF_CELL_WIDTH			BIG_CELL_WIDTH	
-#define SELF_CELL_HEIGHT		BIG_CELL_HEIGHT
+#define BIG_SIZE
 
-//雷的数量
-#define SMALL_MINE_NUM			10
-#define MIDDLE_MINE_NUM			40
-#define BIG_MINE_NUM			99
-#define SELF_MINE_NUM			BIG_MINE_NUM
+#if defined(SMALL_SIZE)
+//初级
+#define SELF_CELL_WIDTH			9
+#define SELF_CELL_HEIGHT		9
+#define SELF_MINE_NUM			10
+
+#elif defined(MIDDLE_SIZE)
+//中级
+#define SELF_CELL_WIDTH			16
+#define SELF_CELL_HEIGHT		16
+#define SELF_MINE_NUM			40
+
+#elif defined(BIG_SIZE)
+//高级
+#define SELF_CELL_WIDTH			30
+#define SELF_CELL_HEIGHT		16
+#define SELF_MINE_NUM			99
+
+#elif defined(USER_DEFINED)
+//自定义
+#define SELF_CELL_WIDTH			__USER_WIDTH__
+#define SELF_CELL_HEIGHT		__USER_HEIGHT__
+
+#else
+//error的出现本身就是一个错误
+#error WIDTH and HEIGHT  not defined
+#endif //判断游戏模式
 
 //雷在屏幕中的尺寸
 #define MINE_LENGTH				30
 
-//
+//命令行区域宽度
 #define CMD_LENGTH				30
 
 //雷区屏幕尺寸
@@ -100,10 +111,10 @@ private:
 
 	//辅助绘制图形
 	void draw(int x, int y, MineStyle style, int Num = 0);
-
+	
 	//非雷数量，归零时游戏胜利
 	unsigned int NotMineNum = SELF_CELL_WIDTH * SELF_CELL_HEIGHT - SELF_MINE_NUM;
-	//标记雷数
+	//标记剩余雷数
 	int MarkNum = SELF_MINE_NUM;
 	//作弊产生的雷的数量
 	int CheatNum = 0;

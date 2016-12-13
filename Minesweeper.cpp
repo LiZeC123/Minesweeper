@@ -107,6 +107,7 @@ void  Screen::Show()
 	}
 
 	if (IsWin()) {
+		MarkNum = 0;
 		for (int i = 0; i < SELF_CELL_HEIGHT; ++i) {
 			for (int j = 0; j < SELF_CELL_WIDTH; ++j) {
 				if (Data[i][j].IsCheck) {

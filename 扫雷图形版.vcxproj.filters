@@ -35,6 +35,9 @@
     <ClInclude Include="Minesweeper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="dead.jpg">
@@ -55,5 +58,13 @@
     <Image Include="WrongMine.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="ooopic_1480840795.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="扫雷图形版1.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

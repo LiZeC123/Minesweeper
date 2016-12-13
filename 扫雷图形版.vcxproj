@@ -150,14 +150,19 @@
   <ItemGroup>
     <ClInclude Include="acllib.h" />
     <ClInclude Include="Minesweeper.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="dead.jpg" />
     <Image Include="mine.jpg" />
+    <Image Include="ooopic_1480840795.ico" />
     <Image Include="RedFlag.jpg" />
     <Image Include="smile.jpg" />
     <Image Include="win.jpg" />
     <Image Include="WrongMine.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="扫雷图形版1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
