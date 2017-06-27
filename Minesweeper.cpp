@@ -11,12 +11,12 @@ Screen::Screen()
 
 void Screen::loadImg()
 {
-	loadImage("smile.jpg", &imgSmile);
-	loadImage("dead.jpg", &imgDead);
-	loadImage("win.jpg", &imgWin);
-	loadImage("RedFlag.jpg", &imgRedFlag);
-	loadImage("mine.jpg", &imgMine);
-	loadImage("WrongMine.jpg", &imgWrongMine);
+	loadImage("res/smile.jpg", &imgSmile);
+	loadImage("res/dead.jpg", &imgDead);
+	loadImage("res/win.jpg", &imgWin);
+	loadImage("res/RedFlag.jpg", &imgRedFlag);
+	loadImage("res/mine.jpg", &imgMine);
+	loadImage("res/WrongMine.jpg", &imgWrongMine);
 }
 
 void Screen::restartThisGame()
