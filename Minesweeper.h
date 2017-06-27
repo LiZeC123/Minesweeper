@@ -9,7 +9,7 @@
 #include "acllib.h"
 
 //屏幕中包含的格子的尺寸
-#define BIG_SIZE
+#define MIDDLE_SIZE
 
 #if defined(SMALL_SIZE)
 //初级
