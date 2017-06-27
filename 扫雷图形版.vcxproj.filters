@@ -30,6 +30,9 @@
     <ClCompile Include="Screen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acllib.h">
@@ -45,6 +48,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="setting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
