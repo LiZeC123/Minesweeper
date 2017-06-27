@@ -1,6 +1,7 @@
 
 #include "acllib.h"
 #include "Minesweeper.h"
+#include "Screen.h"
 #include <stdio.h>
 
 Screen Rc;

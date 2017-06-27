@@ -150,11 +150,14 @@
     <ClCompile Include="idea.txt" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minesweeper.cpp" />
+    <ClCompile Include="Screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acllib.h" />
     <ClInclude Include="Minesweeper.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="setting.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="dead.jpg" />
