@@ -28,13 +28,12 @@ private:
 
 class CharDeque {
 public:
-	CharDeque() = default;
+	CharDeque();
 public:
 	void push(char one);
-	void show();
-public:
-	bool operator==(const std::string & rs);
+	bool canCheat();
 private:
+	const std::string cheatString;
 	std::deque<int> content;
-	const int MaxSize = 14;
+	const int MaxSize;
 };

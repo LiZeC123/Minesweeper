@@ -2,6 +2,11 @@
 #include "acllib.h"
 #include <cstdlib>
 
+using namespace std;
+
+
+CharDeque::CharDeque() : cheatString("LIZECISMYDADDY"), MaxSize(cheatString.size())
+{ }
 
 void CharDeque::push(char one)
 {
@@ -11,24 +16,20 @@ void CharDeque::push(char one)
 	}
 }
 
-void CharDeque::show()
+bool CharDeque::canCheat()
 {
-	for (const auto &i : content) {
-		std::cout << (char)i;
+	if (content.size() != cheatString.size()) {
+		return false;
 	}
-	std::cout << std::endl;
-}
 
-bool CharDeque::operator==(const std::string & rs)
-{
-	auto sit = rs.crbegin();
+	auto sit = cheatString.crbegin();
 	auto dit = content.crbegin();
-	while (sit != rs.crend() && dit != content.crend()) {
-		if (*sit != *dit) {
+	while (sit != cheatString.crend() && dit != content.crend()) {
+		std::cout << "sit=" << *sit << ",dit=" << *dit << std::endl;
+		if (*sit++ != *dit++) {
 			return false;
 		}
-		++sit;
-		++dit;
 	}
+
 	return true;
 }

@@ -57,7 +57,7 @@ void mouseListener(int x, int y, int button, int event)
 }
 
 void KeyBoardListener(int key, int event) {
-	const static std::string cheat("LIZECISMYDADDY");
+	
 	if (key == 'N' && event == KEY_DOWN) {
 		Rc.newGame();
 	}
@@ -66,7 +66,7 @@ void KeyBoardListener(int key, int event) {
 	}
 	else if(event == KEY_DOWN){
 		Cd.push(key);
-		if (Cd == cheat) {
+		if (Cd.canCheat()) {
 			NeedCheat = true;
 		}
 	}
